@@ -1,8 +1,11 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from routers.user import router as user_router
 
 app = FastAPI()
+
+app.include_router(user_router)
 
 class Item(BaseModel):
     name: str
@@ -59,6 +62,9 @@ async def create_item(item: Item) -> dict:
     items_list.append(item)
 
     return item
+
+
+
 
 if __name__ == "__main__":
     import uvicorn
